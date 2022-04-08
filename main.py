@@ -1,16 +1,58 @@
-# This is a sample Python script.
+from fastapi import FastAPI, Path, Query
+from pydantic import BaseModel
+from typing import Optional, List
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+description = """
+ChimichangApp API helps you do awesome stuff. 🚀
+
+## Items
+
+You can **read items**.
+
+## Users
+
+You will be able to:
+
+* **Create users** (_not implemented_).
+* **Read users** (_not implemented_).
+"""
+
+app = FastAPI(
+    title="ChimichangApp",
+    description=description,
+    version="0.0.1",
+    terms_of_service="http://example.com/terms/",
+    contact={
+        "name": "Deadpoolio the Amazing",
+        "url": "http://x-force.example.com/contact/",
+        "email": "dp@x-force.example.com",
+    },
+    license_info={
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+    },
+)
+
+users = []
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+class User(BaseModel):
+    email: str
+    is_active: bool
+    bio: Optional[str]
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+@app.get("/users", response_model=List[User])
+async def get_users():
+    return users
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+@app.post("/users")
+async def create_user(user: User):
+    users.append(user)
+    return users
+
+
+@app.get("/users/{id}")
+async def get_user(id: int = Path(..., description="The ID of user you want to retrieve"), q: str = Query(None, max_length=5)):
+    return {"user": users[id], "query": q}
