@@ -1,7 +1,10 @@
 # tutorials
 
 # New
-# https://youtu.be/gQTRsZpR7Gw?t=3543
+# https://youtu.be/gQTRsZpR7Gw?t=4386
 
 # Older
 # https://youtu.be/kyJNbSUz86w?t=531
+
+# Sqlalchemy relationships
+https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html
