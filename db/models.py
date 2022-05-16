@@ -1,4 +1,4 @@
-from database import Base
+from .database import Base
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Enum, Text
 from sqlalchemy.orm import relationship
 from typing import Optional, List
@@ -7,13 +7,14 @@ from typing import Optional, List
 class User(Base):
     __tablename__ = 'users'
 
-    id: Column(Integer, primary_key=True, index=True)
-    first_name: Column(String(30), nullable=False)
-    last_name: Column(String(30), nullable=False)
-    email: Column(String(100), unique=True, index=True, nullable=False)
-    password_hash: str
-    user_image_path: str
-    posts: relationship('Post', backpopulates='user')
+    id = Column(Integer, primary_key=True, index=True)
+    first_name = Column(String(30), nullable=False)
+    last_name = Column(String(30), nullable=False)
+    email = Column(String(100), unique=True, index=True, nullable=False)
+    password_hash = str
+    user_image_path = str
+    posts = relationship('Post', backpopulates='user')
+    # todo: https://pypi.org/project/bcrypt/
 
 
 class Post(Base):
