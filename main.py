@@ -1,35 +1,16 @@
 from fastapi import FastAPI
 from api import posts, users
+from core.config import settings
 
-description = """
-ChimichangApp API helps you do awesome stuff. 🚀
 
-## Items
-
-You can **read items**.
-
-## Users
-
-You will be able to:
-
-* **Create users** (_not implemented_).
-* **Read users** (_not implemented_).
-"""
 
 app = FastAPI(
-    title="ChimichangApp",
-    description=description,
-    version="0.0.1",
-    terms_of_service="http://example.com/terms/",
-    contact={
-        "name": "Deadpoolio the Amazing",
-        "url": "http://x-force.example.com/contact/",
-        "email": "dp@x-force.example.com",
-    },
-    license_info={
-        "name": "Apache 2.0",
-        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
-    },
+    title=settings.PROJECT_NAME,
+    description=settings.PROJECT_DESCRIPTION,
+    version=settings.PROJECT_VERSION,
+    terms_of_service=settings.TERMS_OF_SERVICE,
+    contact=settings.CONTACT,
+    license_info=settings.LICENCE_INFO,
 )
 
 app.include_router(posts.router, tags=["Posts"])
